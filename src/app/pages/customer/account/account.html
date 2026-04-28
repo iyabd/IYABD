@@ -1,0 +1,301 @@
+<div class="max-w-xl mx-auto space-y-8 pb-32 animate-in fade-in slide-in-from-bottom-4 duration-500">
+  
+  @if (viewMode() === 'login') {
+    <div class="space-y-6">
+      <header class="text-center space-y-2">
+        <div class="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
+          <mat-icon class="text-3xl">login</mat-icon>
+        </div>
+        <h1 class="text-3xl font-heading font-black tracking-tight">Login to Your Account</h1>
+        <p class="text-slate-500 text-sm">Welcome back to IYABD SHOP. Please login to access your dashboard.</p>
+      </header>
+
+      <div class="bg-white dark:bg-zinc-900 rounded-[2.5rem] p-8 soft-shadow border border-slate-100 dark:border-zinc-800 space-y-6">
+        @if (error()) {
+          <div class="bg-red-50 text-red-500 p-4 rounded-2xl text-xs font-bold border border-red-100 animate-in shake duration-300">
+            {{ error() }}
+          </div>
+        }
+
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <label for="loginEmail" class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Gmail / Email</label>
+            <input id="loginEmail" type="email" [(ngModel)]="loginEmail" placeholder="Enter Gmail / Email" 
+                   class="w-full bg-slate-50 dark:bg-zinc-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-primary/20">
+          </div>
+
+          <div class="space-y-2">
+            <label for="loginPass" class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">8 Digit Password</label>
+            <div class="relative">
+              <input id="loginPass" [type]="showLoginPassword() ? 'text' : 'password'" [(ngModel)]="loginPass" placeholder="8 Digit Password" 
+                     class="w-full bg-slate-50 dark:bg-zinc-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-primary/20 pr-12">
+              <button (click)="showLoginPassword.set(!showLoginPassword())" 
+                      class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
+                <mat-icon>{{ showLoginPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button (click)="onLogin()" class="w-full bg-primary text-white py-4 rounded-2xl font-black shadow-lg shadow-primary/20 transition-all hover:brightness-110 active:scale-95 uppercase tracking-widest text-xs">
+          Login
+        </button>
+
+        <div class="text-center space-y-4">
+          <button class="text-xs font-bold text-slate-400 hover:text-primary transition-colors">Forgot Password?</button>
+          <div class="flex items-center gap-4">
+            <div class="flex-1 h-px bg-slate-100 dark:bg-zinc-800"></div>
+            <span class="text-[10px] font-black uppercase tracking-widest text-slate-300">OR</span>
+            <div class="flex-1 h-px bg-slate-100 dark:bg-zinc-800"></div>
+          </div>
+          <p class="text-xs font-bold text-slate-500">New customer?</p>
+          <button (click)="toggleView('register')" class="w-full py-4 rounded-2xl border-2 border-slate-100 dark:border-zinc-800 font-black text-[10px] uppercase tracking-widest hover:border-primary/30 transition-all">
+            Create Account
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (viewMode() === 'register') {
+    <div class="space-y-6">
+      <header class="text-center space-y-2">
+        <div class="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
+          <mat-icon class="text-3xl">person_add</mat-icon>
+        </div>
+        <h1 class="text-3xl font-heading font-black tracking-tight">Create New Account</h1>
+        <p class="text-slate-500 text-sm">Join IYABD SHOP today for the best shopping experience.</p>
+      </header>
+
+      <div class="bg-white dark:bg-zinc-900 rounded-[2.5rem] p-8 soft-shadow border border-slate-100 dark:border-zinc-800 space-y-6">
+        @if (error()) {
+          <div class="bg-red-50 text-red-500 p-4 rounded-2xl text-xs font-bold border border-red-100">
+            {{ error() }}
+          </div>
+        }
+
+        <div class="space-y-4">
+          <input type="text" [(ngModel)]="regName" placeholder="Customer Name" 
+                 class="w-full bg-slate-50 dark:bg-zinc-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-primary/20">
+          
+          <input type="tel" [(ngModel)]="regMobile" placeholder="Mobile Number" 
+                 class="w-full bg-slate-50 dark:bg-zinc-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-primary/20">
+          
+          <textarea [(ngModel)]="regAddress" placeholder="Full Address" rows="3"
+                    class="w-full bg-slate-50 dark:bg-zinc-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-primary/20 resize-none"></textarea>
+          
+          <input type="email" [(ngModel)]="regEmail" placeholder="Gmail / Email" 
+                 class="w-full bg-slate-50 dark:bg-zinc-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-primary/20">
+          
+          <div class="relative">
+            <input [type]="showRegPassword() ? 'text' : 'password'" [(ngModel)]="regPass" placeholder="8 Digit Password" 
+                   class="w-full bg-slate-50 dark:bg-zinc-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-primary/20 pr-12">
+            <button (click)="showRegPassword.set(!showRegPassword())" 
+                    class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+              <mat-icon>{{ showRegPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+
+          <div class="relative">
+            <input [type]="showConfirmPassword() ? 'text' : 'password'" [(ngModel)]="regConfirmPass" placeholder="Confirm Password" 
+                   class="w-full bg-slate-50 dark:bg-zinc-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-primary/20 pr-12">
+            <button (click)="showConfirmPassword.set(!showConfirmPassword())" 
+                    class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+              <mat-icon>{{ showConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <button (click)="onRegister()" class="w-full bg-primary text-white py-4 rounded-2xl font-black shadow-lg shadow-primary/20 transition-all hover:brightness-110 active:scale-95 uppercase tracking-widest text-xs">
+          Register
+        </button>
+
+        <div class="text-center">
+          <p class="text-xs font-bold text-slate-500 mb-4">Already have an account?</p>
+          <button (click)="toggleView('login')" class="w-full py-4 rounded-2xl border-2 border-slate-100 dark:border-zinc-800 font-black text-[10px] uppercase tracking-widest hover:border-primary/30 transition-all">
+            Login Now
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (viewMode() === 'dashboard') {
+    <div class="space-y-6">
+      
+      <!-- Profile Header Card -->
+      <div class="bg-primary rounded-[2.5rem] p-8 text-white soft-shadow relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+        
+        <div class="relative z-10 flex items-center gap-6">
+          <div class="w-20 h-20 rounded-3xl bg-white/20 backdrop-blur-md flex items-center justify-center text-4xl font-black">
+            {{ (authService.currentUser()?.name || 'C').charAt(0) }}
+          </div>
+          <div class="space-y-1">
+            <h2 class="text-2xl font-heading font-black tracking-tight">{{ authService.currentUser()?.name }}</h2>
+            <p class="text-white/70 text-xs font-medium">{{ authService.currentUser()?.email }}</p>
+            <div class="pt-2">
+               <span class="bg-white/20 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest leading-none">Customer ID: #{{ (authService.currentUser()?.mobile || '').slice(-4) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Stats / Navigation Tabs -->
+      <div class="grid grid-cols-2 gap-3">
+        <button (click)="activeTab.set('orders')" class="bg-white dark:bg-zinc-900 p-6 rounded-[2rem] soft-shadow border border-slate-50 dark:border-zinc-800/50 text-left space-y-2 group transition-all" [class.!border-primary]="activeTab() === 'orders'">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-zinc-800 flex items-center justify-center text-indigo-500 group-hover:bg-primary group-hover:text-white transition-all">
+            <mat-icon>shopping_bag</mat-icon>
+          </div>
+          <div>
+            <div class="text-lg font-black font-heading">{{ customerOrders().length }}</div>
+            <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">My Orders</div>
+          </div>
+        </button>
+        <button (click)="activeTab.set('wishlist')" class="bg-white dark:bg-zinc-900 p-6 rounded-[2rem] soft-shadow border border-slate-50 dark:border-zinc-800/50 text-left space-y-2 group transition-all" [class.!border-primary]="activeTab() === 'wishlist'">
+          <div class="w-10 h-10 rounded-2xl bg-rose-50 dark:bg-zinc-800 flex items-center justify-center text-rose-500 group-hover:bg-primary group-hover:text-white transition-all">
+            <mat-icon>favorite</mat-icon>
+          </div>
+          <div>
+            <div class="text-lg font-black font-heading">0</div>
+            <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">Wishlist</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Main Dashboard Menu -->
+      <div class="bg-white dark:bg-zinc-900 rounded-[2.5rem] p-4 soft-shadow border border-slate-50 dark:border-zinc-800/50 overflow-hidden">
+        <button (click)="activeTab.set('overview')" class="w-full flex items-center gap-4 p-4 rounded-2xl transition-all" [class.bg-slate-50]="activeTab() === 'overview'" [class.dark:bg-zinc-800]="activeTab() === 'overview'">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-zinc-800 flex items-center justify-center text-slate-500" [class.!bg-primary/10]="activeTab() === 'overview'" [class.!text-primary]="activeTab() === 'overview'">
+            <mat-icon>person</mat-icon>
+          </div>
+          <span class="flex-1 text-left font-bold text-sm">Profile Information</span>
+          <mat-icon class="text-slate-300">chevron_right</mat-icon>
+        </button>
+
+        <button (click)="activeTab.set('tracking')" class="w-full flex items-center gap-4 p-4 rounded-2xl transition-all" [class.bg-slate-50]="activeTab() === 'tracking'" [class.dark:bg-zinc-800]="activeTab() === 'tracking'">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-zinc-800 flex items-center justify-center text-slate-500" [class.!bg-primary/10]="activeTab() === 'tracking'" [class.!text-primary]="activeTab() === 'tracking'">
+            <mat-icon>local_shipping</mat-icon>
+          </div>
+          <span class="flex-1 text-left font-bold text-sm">Order Tracking</span>
+          <mat-icon class="text-slate-300">chevron_right</mat-icon>
+        </button>
+
+        <button (click)="activeTab.set('address')" class="w-full flex items-center gap-4 p-4 rounded-2xl transition-all" [class.bg-slate-50]="activeTab() === 'address'" [class.dark:bg-zinc-800]="activeTab() === 'address'">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-zinc-800 flex items-center justify-center text-slate-500" [class.!bg-primary/10]="activeTab() === 'address'" [class.!text-primary]="activeTab() === 'address'">
+            <mat-icon>home_work</mat-icon>
+          </div>
+          <span class="flex-1 text-left font-bold text-sm">Saved Addresses</span>
+          <mat-icon class="text-slate-300">chevron_right</mat-icon>
+        </button>
+
+        <button (click)="activeTab.set('payments')" class="w-full flex items-center gap-4 p-4 rounded-2xl transition-all" [class.bg-slate-50]="activeTab() === 'payments'" [class.dark:bg-zinc-800]="activeTab() === 'payments'">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-zinc-800 flex items-center justify-center text-slate-500" [class.!bg-primary/10]="activeTab() === 'payments'" [class.!text-primary]="activeTab() === 'payments'">
+            <mat-icon>history_edu</mat-icon>
+          </div>
+          <span class="flex-1 text-left font-bold text-sm">Payment History</span>
+          <mat-icon class="text-slate-300">chevron_right</mat-icon>
+        </button>
+
+        <div class="h-px bg-slate-50 dark:bg-zinc-800 my-2 mx-4"></div>
+
+        <button (click)="logout()" class="w-full flex items-center gap-4 p-4 rounded-2xl transition-all text-red-500 hover:bg-red-50">
+          <div class="w-10 h-10 rounded-xl bg-red-50 dark:bg-zinc-800/30 flex items-center justify-center">
+            <mat-icon>logout</mat-icon>
+          </div>
+          <span class="flex-1 text-left font-bold text-sm">Logout</span>
+        </button>
+      </div>
+
+      <!-- Tab Content Area -->
+      <div class="animate-in fade-in slide-in-from-top-4 duration-300">
+         @if (activeTab() === 'overview') {
+           <div class="bg-white dark:bg-zinc-900 rounded-[2.5rem] p-8 soft-shadow border border-slate-50 dark:border-zinc-800/50 space-y-6">
+              <h3 class="text-xl font-heading font-black tracking-tight">Personal Information</h3>
+              <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                   <div class="space-y-1">
+                      <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">Full Name</div>
+                      <div class="text-sm font-bold">{{ authService.currentUser()?.name }}</div>
+                   </div>
+                   <div class="space-y-1">
+                      <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">Mobile Number</div>
+                      <div class="text-sm font-bold">{{ authService.currentUser()?.mobile }}</div>
+                   </div>
+                </div>
+                <div class="space-y-1">
+                   <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">Email Address</div>
+                   <div class="text-sm font-bold">{{ authService.currentUser()?.email }}</div>
+                </div>
+                <div class="space-y-1">
+                   <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">Default Address</div>
+                   <div class="text-sm font-bold leading-relaxed">{{ authService.currentUser()?.address }}</div>
+                </div>
+                <button class="w-full py-4 rounded-2xl border-2 border-slate-100 dark:border-zinc-800 font-black text-[10px] uppercase tracking-widest hover:border-primary/30 transition-all">
+                   Edit Profile
+                </button>
+              </div>
+           </div>
+         }
+
+         @if (activeTab() === 'orders') {
+           <div class="space-y-4">
+             <h3 class="text-xl font-heading font-black tracking-tight ml-4">My Orders</h3>
+             @for (order of customerOrders(); track order.id) {
+               <div class="bg-white dark:bg-zinc-900 p-4 rounded-[2rem] soft-shadow border border-slate-50 dark:border-zinc-800/50 flex gap-4 items-center">
+                  <img [src]="order.items[0]?.image" alt="Product Image" class="w-20 h-20 rounded-2xl object-cover">
+                  <div class="flex-1 min-w-0 space-y-1">
+                    <div class="flex items-center justify-between">
+                       <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">#{{ order.id }}</span>
+                       <span [class]="getStatusClass(order.status)" class="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full">{{ order.status }}</span>
+                    </div>
+                    <h4 class="font-bold text-sm truncate">{{ order.items[0]?.name }} @if(order.items.length > 1){ <span class="text-primary font-black">+{{order.items.length - 1}} more</span> }</h4>
+                    <div class="flex items-center justify-between pt-1">
+                       <span class="text-xs font-black text-primary taka-symbol">{{ order.total }}</span>
+                       <button (click)="viewOrderTracking(order.id)" class="text-[10px] font-black text-primary uppercase tracking-widest bg-primary/5 px-3 py-1.5 rounded-lg border border-primary/10">Track Order</button>
+                    </div>
+                  </div>
+               </div>
+             } @empty {
+               <div class="text-center py-12 space-y-4">
+                 <div class="w-16 h-16 bg-slate-50 dark:bg-zinc-800 rounded-full flex items-center justify-center mx-auto text-slate-300">
+                    <mat-icon class="text-3xl">shopping_basket</mat-icon>
+                 </div>
+                 <p class="text-slate-400 text-sm font-bold">You haven't placed any orders yet.</p>
+                 <button (click)="router.navigate(['/'])" class="text-xs font-black text-primary uppercase tracking-widest">Start Shopping</button>
+               </div>
+             }
+           </div>
+         }
+
+         @if (activeTab() === 'tracking') {
+            <div class="bg-white dark:bg-zinc-900 rounded-[2.5rem] p-8 soft-shadow border border-slate-50 dark:border-zinc-800/50 space-y-6">
+              <h3 class="text-xl font-heading font-black tracking-tight">Track Your Order</h3>
+              <div class="flex gap-2">
+                <input type="text" [(ngModel)]="trackingId" placeholder="Order ID (e.g. #ORD-1001)" 
+                       class="flex-1 bg-slate-50 dark:bg-zinc-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-primary/20">
+                <button (click)="trackOrder()" class="bg-primary text-white p-4 rounded-2xl shadow-lg shadow-primary/20">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+
+              @if (trackingResult()) {
+                <div class="pt-6 space-y-8 pl-4 border-l-2 border-slate-100 dark:border-zinc-800">
+                  @for (step of trackingResult()?.steps; track step.label) {
+                    <div class="relative">
+                      <div class="absolute -left-[25px] top-0 w-4 h-4 rounded-full border-4 border-white dark:border-zinc-900"
+                           [class.bg-emerald-500]="step.completed" [class.bg-slate-200]="!step.completed"></div>
+                      <div class="space-y-1">
+                        <div class="text-sm font-bold" [class.text-slate-400]="!step.completed">{{ step.label }}</div>
+                        <div class="text-[10px] text-slate-400">{{ step.date }}</div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+         }
+      </div>
+    </div>
+  }
+</div>

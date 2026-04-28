@@ -1,0 +1,40 @@
+:host {
+  display: block;
+}
+
+/* Auth Shake Animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Glass effect for active states */
+.tab-active {
+  background: rgba(108, 44, 255, 0.05);
+  border-color: rgba(108, 44, 255, 0.2);
+}
+
+/* Custom Scrollbar for dashboard items */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+input:focus {
+  outline: none;
+}
+
+textarea:focus {
+  outline: none;
+}

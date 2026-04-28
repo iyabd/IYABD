@@ -1,0 +1,75 @@
+import { Routes } from '@angular/router';
+import { adminGuard } from './admin.guard';
+
+export const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () => import('./layouts/customer-layout/customer-layout').then(m => m.CustomerLayout),
+    children: [
+      { path: '', loadComponent: () => import('./pages/customer/home/home').then(m => m.Home) },
+      { path: 'products', loadComponent: () => import('./pages/customer/product-list/product-list').then(m => m.ProductList) },
+      { path: 'product/:id', loadComponent: () => import('./pages/customer/product-details/product-details').then(m => m.ProductDetails) },
+      { path: 'cart', loadComponent: () => import('./pages/customer/cart/cart').then(m => m.Cart) },
+      { path: 'checkout', loadComponent: () => import('./pages/customer/checkout/checkout').then(m => m.Checkout) },
+      { path: 'order-tracking', loadComponent: () => import('./pages/customer/order-tracking/order-tracking').then(m => m.OrderTracking) },
+      { path: 'categories', loadComponent: () => import('./pages/customer/product-list/product-list').then(m => m.ProductList) },
+      { path: 'my-account', loadComponent: () => import('./pages/customer/account/account').then(m => m.Account) },
+      { path: 'messenger', loadComponent: () => import('./pages/customer/messenger/messenger').then(m => m.Messenger) },
+      { path: 'facebook-updates', loadComponent: () => import('./pages/customer/facebook-updates/facebook-updates').then(m => m.FacebookUpdates) },
+    ]
+  },
+  {
+    path: 'admin/login',
+    loadComponent: () => import('./pages/admin/login/login').then(m => m.AdminLogin)
+  },
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    loadComponent: () => import('./layouts/admin-layout/admin-layout').then(m => m.AdminLayout),
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', loadComponent: () => import('./pages/admin/dashboard/dashboard').then(m => m.Dashboard) },
+      { path: 'reviews', loadComponent: () => import('./pages/admin/reviews/reviews').then(m => m.AdminReviews) },
+      { path: 'qa', loadComponent: () => import('./pages/admin/qa/qa').then(m => m.AdminQa) },
+      { path: 'profile', loadComponent: () => import('./pages/admin/profile/profile').then(m => m.AdminProfile) },
+      { path: 'products', loadComponent: () => import('./pages/admin/products/products').then(m => m.Products) },
+      { path: 'add-product', loadComponent: () => import('./pages/admin/add-edit-product/add-edit-product').then(m => m.AddEditProduct) },
+      { path: 'edit-product/:id', loadComponent: () => import('./pages/admin/add-edit-product/add-edit-product').then(m => m.AddEditProduct) },
+      { path: 'orders', loadComponent: () => import('./pages/admin/orders/orders').then(m => m.Orders) },
+      { path: 'order-details/:id', loadComponent: () => import('./pages/admin/orders/order-details').then(m => m.OrderDetails) },
+      { path: 'categories', loadComponent: () => import('./pages/admin/categories/categories').then(m => m.Categories) },
+      { path: 'customers', loadComponent: () => import('./pages/admin/customers/customer-list').then(m => m.CustomerList) },
+      { path: 'customer-accounts', loadComponent: () => import('./pages/admin/customers/customer-accounts').then(m => m.CustomerAccounts) },
+      { path: 'order-tracking', loadComponent: () => import('./pages/admin/order-tracking-admin/order-tracking-admin').then(m => m.OrderTrackingAdmin) },
+      { path: 'promo-codes', loadComponent: () => import('./pages/admin/marketing/promo-codes').then(m => m.PromoCodes) },
+      { path: 'banners', loadComponent: () => import('./pages/admin/banners/banners').then(m => m.Banners) },
+      { path: 'featured', loadComponent: () => import('./pages/admin/marketing/featured').then(m => m.FeaturedProducts) },
+      { path: 'delivery', loadComponent: () => import('./pages/admin/settings-pro/delivery-settings').then(m => m.DeliverySettings) },
+      { path: 'payment-settings', loadComponent: () => import('./pages/admin/settings-pro/payment-settings').then(m => m.PaymentSettings) },
+      { path: 'billing', loadComponent: () => import('./pages/admin/billing/billing').then(m => m.Billing) },
+      { path: 'analytics', loadComponent: () => import('./pages/admin/reports/analytics').then(m => m.Analytics) },
+      { path: 'sales-report', loadComponent: () => import('./pages/admin/reports/sales-report').then(m => m.SalesReport) },
+      { path: 'low-stock', loadComponent: () => import('./pages/admin/reports/low-stock').then(m => m.LowStock) },
+      { path: 'shop-settings', loadComponent: () => import('./pages/admin/settings/settings').then(m => m.Settings) },
+      { path: 'logo-settings', loadComponent: () => import('./pages/admin/settings-pro/logo-settings').then(m => m.LogoSettings) },
+      { path: 'address-settings', loadComponent: () => import('./pages/admin/settings-pro/address-settings').then(m => m.AddressSettings) },
+      { path: 'help', loadComponent: () => import('./pages/admin/help/help').then(m => m.AdminHelp) },
+      { path: 'courier-settings', loadComponent: () => import('./pages/admin/settings-pro/courier-settings').then(m => m.CourierSettings) },
+      { path: 'tracking-settings', loadComponent: () => import('./pages/admin/marketing/tracking-settings').then(m => m.TrackingSettings) },
+      { path: 'catalog-settings', loadComponent: () => import('./pages/admin/marketing/catalog-settings').then(m => m.CatalogSettings) },
+      { path: 'tag-manager', loadComponent: () => import('./pages/admin/marketing/tag-manager').then(m => m.TagManager) },
+      { path: 'inventory', loadComponent: () => import('./pages/admin/inventory/inventory').then(m => m.InventoryManagement) },
+      { path: 'returns', loadComponent: () => import('./pages/admin/returns/returns').then(m => m.ReturnsManagement) },
+      { path: 'fraud', loadComponent: () => import('./pages/admin/fraud/fraud').then(m => m.FraudManagement) },
+      { path: 'staff', loadComponent: () => import('./pages/admin/settings-pro/staff-management').then(m => m.StaffManagement) },
+      { path: 'backup', loadComponent: () => import('./pages/admin/settings-pro/backup-export').then(m => m.BackupExport) },
+      { path: 'tiktok-pixel', loadComponent: () => import('./pages/admin/marketing/tiktok-pixel').then(m => m.TiktokPixelSettings) },
+      { path: 'google-analytics', loadComponent: () => import('./pages/admin/marketing/google-analytics').then(m => m.GoogleAnalyticsSettings) },
+      { path: 'script-manager', loadComponent: () => import('./pages/admin/marketing/script-manager').then(m => m.ScriptManagerSettings) },
+      { path: 'notifications', loadComponent: () => import('./pages/admin/settings-pro/notifications-settings').then(m => m.NotificationSettings) },
+      { path: 'messaging', loadComponent: () => import('./pages/admin/settings-pro/messaging-settings').then(m => m.MessagingSettings) },
+      { path: 'invoice-settings', loadComponent: () => import('./pages/admin/settings-pro/invoice-settings').then(m => m.InvoiceSettings) },
+    ]
+  },
+  { path: '**', redirectTo: '' }
+];

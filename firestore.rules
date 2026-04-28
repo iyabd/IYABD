@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helpers
+    function isSignedIn() { return request.auth != null; }
+    function isVerified() { return isSignedIn() && request.auth.token.email_verified == true; }
+    function isAdmin() { 
+      return isVerified() && request.auth.token.email == 'iyabdadmin@gmail.com';
+    }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+
+    // --- Products ---
+    match /products/{productId} {
+      allow read: if resource.data.active == true || isAdmin();
+      allow write: if isAdmin() && isValidId(productId);
+    }
+
+    // --- Categories ---
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(categoryId);
+    }
+
+    // --- Orders ---
+    match /orders/{orderId} {
+      // Customers can create orders
+      allow create: if true; 
+      // Customers can read their own order by ID (tracking)
+      allow get: if true; 
+      // Only admin can list or update orders
+      allow list, update, delete: if isAdmin();
+    }
+
+    // --- Settings ---
+    match /settings/config {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}
